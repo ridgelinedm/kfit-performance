@@ -96,11 +96,19 @@
           <h2 style="margin-bottom: var(--space-lg);">Let's talk</h2>
 
           <!--
-            This static form posts to Formspree. Replace YOUR_FORM_ID with the
-            real endpoint (https://formspree.io/), or swap in Netlify Forms / any
-            handler. No backend ships with the static site.
+            Static form delivered via FormSubmit.co — no backend, no API key.
+            Submissions are emailed to kylie@kfitperformance.com.
+            ACTIVATION (one time): the first submission triggers a confirmation
+            email to that address; click the link in it to begin receiving leads.
           -->
-          <form class="form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <form class="form" action="https://formsubmit.co/kylie@kfitperformance.com" method="POST">
+            <!-- FormSubmit configuration (hidden) -->
+            <input type="hidden" name="_subject" value="New booking request — KFit Performance website">
+            <input type="hidden" name="_template" value="table">
+            <input type="hidden" name="_captcha" value="false">
+            <!-- Redirect after submit. JS rewrites this to the current site's
+                 thank-you page (works on both the Pages URL and production). -->
+            <input type="hidden" name="_next" value="https://www.kfitperformance.com/thank-you.html" data-next-thankyou>
             <div class="form__group">
               <label class="form__label" for="name">Name <span class="req" aria-hidden="true">*</span></label>
               <input class="form__control" type="text" id="name" name="name" autocomplete="name" placeholder="Your full name" required>
@@ -133,10 +141,10 @@
               <textarea class="form__control" id="message" name="message" placeholder="Tell us a little about your goals and what you're looking for." required></textarea>
             </div>
 
-            <!-- Honeypot for spam bots (hidden from users) -->
+            <!-- Honeypot for spam bots (hidden from users; FormSubmit drops any submission where this is filled) -->
             <div style="position:absolute; left:-9999px;" aria-hidden="true">
               <label for="company">Leave this field empty</label>
-              <input type="text" id="company" name="_gotcha" tabindex="-1" autocomplete="off">
+              <input type="text" id="company" name="_honey" tabindex="-1" autocomplete="off">
             </div>
 
             <button type="submit" class="btn btn--primary btn--block">Send Message</button>

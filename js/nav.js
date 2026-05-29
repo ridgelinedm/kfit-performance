@@ -14,6 +14,7 @@
     initStickyNav();
     initScrollFade();
     initFooterYear();
+    initFormRedirect();
   });
 
   /* ---------------------------------------------------------------------- */
@@ -127,5 +128,18 @@
     if (el) {
       el.textContent = new Date().getFullYear();
     }
+  }
+
+  /* ---------------------------------------------------------------------- */
+  /* Contact form: point FormSubmit's _next at this site's thank-you page   */
+  /* so the redirect works on both the staging URL and the live domain.     */
+  /* ---------------------------------------------------------------------- */
+  function initFormRedirect() {
+    var field = document.querySelector("[data-next-thankyou]");
+    if (!field) return;
+
+    var path = window.location.pathname;
+    var dir = path.slice(0, path.lastIndexOf("/") + 1); // strip the filename
+    field.value = window.location.origin + dir + "thank-you.html";
   }
 })();
